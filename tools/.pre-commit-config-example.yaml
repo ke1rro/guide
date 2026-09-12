@@ -1,0 +1,48 @@
+exclude: >
+  (?x)^(
+    \.venv/|
+    venv/|
+    build/|
+    cmake-build-.*/|
+    out/|
+    bin/|
+    third_party/|
+    external/|
+    vendor/|
+    generated/|
+    data/|
+    \.vscode/|
+    \.idea/|
+    \.git/|
+    \.cache/|
+    \.PVS-Studio/|
+    compile\.log$
+  )
+
+repos:
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 23.10.1
+    hooks:
+      - id: black
+        language_version: python3
+        args:
+          - "--line-length=100"
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args:
+          - "--profile=black"
+          - "--line-length=100"
+
+  - repo: https://github.com/cpp-linter/cpp-linter-hooks
+    rev: v1.1.12
+    hooks:
+      - id: clang-format
+        args:
+          - "--style=file"
+
+      - id: clang-tidy
+        args:
+          - "-p=build"
